@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FavoriteMovies
 {
-    public partial class Form1 : Form
+    public partial class MovieDetails : Form
     {
-        public Form1()
+        public MovieDetails()
         {
             InitializeComponent();
         }
