@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.grpMovies = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -37,11 +38,10 @@
             this.btnAddMovie = new System.Windows.Forms.Button();
             this.btnEditMovie = new System.Windows.Forms.Button();
             this.btnRemoveMovie = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.grpMovies.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // grpMovies
@@ -53,6 +53,18 @@
             this.grpMovies.TabIndex = 0;
             this.grpMovies.TabStop = false;
             this.grpMovies.Text = "Movies";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(16, 38);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowTemplate.Height = 28;
+            this.dataGridView1.Size = new System.Drawing.Size(700, 398);
+            this.dataGridView1.TabIndex = 0;
             // 
             // statusStrip1
             // 
@@ -95,6 +107,7 @@
             this.menuClose.Name = "menuClose";
             this.menuClose.Size = new System.Drawing.Size(211, 30);
             this.menuClose.Text = "Close";
+            this.menuClose.Click += new System.EventHandler(this.menuClose_Click);
             // 
             // btnAddMovie
             // 
@@ -104,6 +117,7 @@
             this.btnAddMovie.TabIndex = 0;
             this.btnAddMovie.Text = "Add Movie";
             this.btnAddMovie.UseVisualStyleBackColor = true;
+            this.btnAddMovie.Click += new System.EventHandler(this.btnAddMovie_Click);
             // 
             // btnEditMovie
             // 
@@ -123,19 +137,7 @@
             this.btnRemoveMovie.Text = "Remove Movie";
             this.btnRemoveMovie.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 38);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(700, 398);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // Form1
+            // MovieView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -147,14 +149,15 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.grpMovies);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MovieView";
             this.Text = "Favorite Movies";
+            this.Load += new System.EventHandler(this.MovieView_Load);
             this.grpMovies.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

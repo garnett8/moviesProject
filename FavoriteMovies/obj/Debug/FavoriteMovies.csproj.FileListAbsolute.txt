@@ -1,1 +1,10 @@
 c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\bin\Debug\FavoriteMovies.exe.config
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.csprojResolveAssemblyReference.cache
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.MovieDetails.resources
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.MovieView.resources
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.Properties.Resources.resources
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.csproj.GenerateResource.Cache
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\bin\Debug\FavoriteMovies.exe
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\bin\Debug\FavoriteMovies.pdb
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.exe
+c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.pdb

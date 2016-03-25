@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtMovieRating = new System.Windows.Forms.TextBox();
             this.lblMovieDesc = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtMovieDesc = new System.Windows.Forms.TextBox();
             this.grpGenres = new System.Windows.Forms.GroupBox();
             this.chkAction = new System.Windows.Forms.CheckBox();
             this.chkAdventure = new System.Windows.Forms.CheckBox();
@@ -107,13 +107,13 @@
             this.lblMovieDesc.TabIndex = 57;
             this.lblMovieDesc.Text = "Movie Description:";
             // 
-            // textBox1
+            // txtMovieDesc
             // 
-            this.textBox1.Location = new System.Drawing.Point(231, 210);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(374, 91);
-            this.textBox1.TabIndex = 3;
+            this.txtMovieDesc.Location = new System.Drawing.Point(231, 210);
+            this.txtMovieDesc.Multiline = true;
+            this.txtMovieDesc.Name = "txtMovieDesc";
+            this.txtMovieDesc.Size = new System.Drawing.Size(374, 91);
+            this.txtMovieDesc.TabIndex = 3;
             // 
             // grpGenres
             // 
@@ -187,6 +187,7 @@
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
@@ -196,13 +197,14 @@
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblDetailsStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 462);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 492);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(711, 30);
             this.statusStrip1.TabIndex = 58;
@@ -218,12 +220,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 492);
+            this.ClientSize = new System.Drawing.Size(711, 522);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.grpGenres);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtMovieDesc);
             this.Controls.Add(this.lblMovieDesc);
             this.Controls.Add(this.txtMovieRating);
             this.Controls.Add(this.label1);
@@ -251,7 +253,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMovieRating;
         private System.Windows.Forms.Label lblMovieDesc;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtMovieDesc;
         private System.Windows.Forms.GroupBox grpGenres;
         private System.Windows.Forms.CheckBox chkComedy;
         private System.Windows.Forms.CheckBox chkScary;
