@@ -8,3 +8,5 @@ c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovi
 c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\bin\Debug\FavoriteMovies.pdb
 c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.exe
 c:\users\jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\obj\Debug\FavoriteMovies.pdb
+C:\Users\Jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\bin\Debug\MovieDatabase.mdf
+C:\Users\Jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\bin\Debug\MovieDatabase_log.ldf

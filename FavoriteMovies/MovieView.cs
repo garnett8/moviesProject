@@ -21,6 +21,8 @@ namespace FavoriteMovies
 
         private void MovieView_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'movieDatabaseDataSet.Movies' table. You can move, or remove it, as needed.
+            this.moviesTableAdapter.Fill(this.movieDatabaseDataSet.Movies);
             lblStatus.Text = "";
         }
 
