@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.grpMovies = new System.Windows.Forms.GroupBox();
             this.gridMovies = new System.Windows.Forms.DataGridView();
+            this.moviesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.movieDatabaseDataSet = new FavoriteMovies.MovieDatabaseDataSet();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -39,9 +41,7 @@
             this.btnAddMovie = new System.Windows.Forms.Button();
             this.btnEditMovie = new System.Windows.Forms.Button();
             this.btnRemoveMovie = new System.Windows.Forms.Button();
-            this.movieDatabaseDataSet = new FavoriteMovies.MovieDatabaseDataSet();
             this.movieDatabaseDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.moviesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.moviesTableAdapter = new FavoriteMovies.MovieDatabaseDataSetTableAdapters.MoviesTableAdapter();
             this.tableAdapterManager = new FavoriteMovies.MovieDatabaseDataSetTableAdapters.TableAdapterManager();
             this.movieTitleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,11 +51,11 @@
             this.ratingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpMovies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridMovies)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.moviesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.movieDatabaseDataSet)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.movieDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.movieDatabaseDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.moviesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // grpMovies
@@ -91,6 +91,16 @@
             this.gridMovies.RowTemplate.Height = 28;
             this.gridMovies.Size = new System.Drawing.Size(944, 419);
             this.gridMovies.TabIndex = 0;
+            // 
+            // moviesBindingSource
+            // 
+            this.moviesBindingSource.DataMember = "Movies";
+            this.moviesBindingSource.DataSource = this.movieDatabaseDataSet;
+            // 
+            // movieDatabaseDataSet
+            // 
+            this.movieDatabaseDataSet.DataSetName = "MovieDatabaseDataSet";
+            this.movieDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // statusStrip1
             // 
@@ -163,20 +173,10 @@
             this.btnRemoveMovie.Text = "Remove Movie";
             this.btnRemoveMovie.UseVisualStyleBackColor = true;
             // 
-            // movieDatabaseDataSet
-            // 
-            this.movieDatabaseDataSet.DataSetName = "MovieDatabaseDataSet";
-            this.movieDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // movieDatabaseDataSetBindingSource
             // 
             this.movieDatabaseDataSetBindingSource.DataSource = this.movieDatabaseDataSet;
             this.movieDatabaseDataSetBindingSource.Position = 0;
-            // 
-            // moviesBindingSource
-            // 
-            this.moviesBindingSource.DataMember = "Movies";
-            this.moviesBindingSource.DataSource = this.movieDatabaseDataSet;
             // 
             // moviesTableAdapter
             // 
@@ -211,7 +211,7 @@
             // 
             // genresDataGridViewTextBoxColumn
             // 
-            this.genresDataGridViewTextBoxColumn.DataPropertyName = "Genre(s)";
+            this.genresDataGridViewTextBoxColumn.DataPropertyName = "Genres";
             this.genresDataGridViewTextBoxColumn.HeaderText = "Genre(s)";
             this.genresDataGridViewTextBoxColumn.Name = "genresDataGridViewTextBoxColumn";
             this.genresDataGridViewTextBoxColumn.ReadOnly = true;
@@ -240,13 +240,13 @@
             this.Load += new System.EventHandler(this.MovieView_Load);
             this.grpMovies.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridMovies)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.moviesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.movieDatabaseDataSet)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.movieDatabaseDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.movieDatabaseDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.moviesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

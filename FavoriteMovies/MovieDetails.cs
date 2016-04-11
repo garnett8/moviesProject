@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,9 @@ namespace FavoriteMovies
     public partial class MovieDetails : Form
     {
         private Movie theMovie;
-
+        private string query = @"INSERT INTO dbo.Movies(MovieTitle, Description, ReleaseYear, Genres, Rating) VALUES(@title, @description, @year, @genre, @rating)";
+        private string dbConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\MovieDatabase.mdf;Integrated Security=True";
+        
         public MovieDetails()
         {
             InitializeComponent();
@@ -38,9 +41,33 @@ namespace FavoriteMovies
                 int.TryParse(txtYearReleased.Text, out releaseYear);
                 int.TryParse(txtMovieRating.Text, out rating);
                 string genres = getGenreString();
-
+                
                 theMovie = new Movie(txtMovieTitle.Text, releaseYear, rating, txtMovieDesc.Text, genres);
-                // Save new movie to the database
+
+                try
+                {
+                    // Save new movie to the database
+                    using (var dbConnection = new SqlConnection(dbConnectionString))
+                    using (var dbCommand = new SqlCommand(query, dbConnection))
+                    {
+                        dbConnection.Open();
+
+                        dbCommand.Parameters.AddWithValue("@title", theMovie.getMovieTitle());
+                        dbCommand.Parameters.AddWithValue("@description", theMovie.getMovieDesc());
+                        dbCommand.Parameters.AddWithValue("@year", theMovie.getYearReleased());
+                        dbCommand.Parameters.AddWithValue("@genre", theMovie.getGenres());
+                        dbCommand.Parameters.AddWithValue("@rating", theMovie.getMovieRating());
+
+                        dbCommand.ExecuteNonQuery();
+                        dbConnection.Close();
+                    }
+                }
+                catch(Exception ex)
+                {
+                    lblDetailsStatus.Text = ex.Message;
+                }
+                
+
             }
         }
 
