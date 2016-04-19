@@ -44,11 +44,6 @@
             this.movieDatabaseDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.moviesTableAdapter = new FavoriteMovies.MovieDatabaseDataSetTableAdapters.MoviesTableAdapter();
             this.tableAdapterManager = new FavoriteMovies.MovieDatabaseDataSetTableAdapters.TableAdapterManager();
-            this.movieTitleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.releaseYearDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.genresDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ratingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpMovies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridMovies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.moviesBindingSource)).BeginInit();
@@ -63,7 +58,7 @@
             this.grpMovies.Controls.Add(this.gridMovies);
             this.grpMovies.Location = new System.Drawing.Point(110, 91);
             this.grpMovies.Name = "grpMovies";
-            this.grpMovies.Size = new System.Drawing.Size(984, 461);
+            this.grpMovies.Size = new System.Drawing.Size(1253, 461);
             this.grpMovies.TabIndex = 0;
             this.grpMovies.TabStop = false;
             this.grpMovies.Text = "Movies";
@@ -72,24 +67,18 @@
             // 
             this.gridMovies.AllowUserToAddRows = false;
             this.gridMovies.AllowUserToDeleteRows = false;
-            this.gridMovies.AutoGenerateColumns = false;
             this.gridMovies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridMovies.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.gridMovies.BackgroundColor = System.Drawing.SystemColors.Control;
             this.gridMovies.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.gridMovies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridMovies.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.movieTitleDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn,
-            this.releaseYearDataGridViewTextBoxColumn,
-            this.genresDataGridViewTextBoxColumn,
-            this.ratingDataGridViewTextBoxColumn});
-            this.gridMovies.DataSource = this.moviesBindingSource;
             this.gridMovies.Location = new System.Drawing.Point(22, 25);
+            this.gridMovies.MultiSelect = false;
             this.gridMovies.Name = "gridMovies";
             this.gridMovies.ReadOnly = true;
             this.gridMovies.RowTemplate.Height = 28;
-            this.gridMovies.Size = new System.Drawing.Size(944, 419);
+            this.gridMovies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridMovies.Size = new System.Drawing.Size(1212, 419);
             this.gridMovies.TabIndex = 0;
             // 
             // moviesBindingSource
@@ -109,7 +98,7 @@
             this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 685);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1129, 30);
+            this.statusStrip1.Size = new System.Drawing.Size(1405, 30);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -126,7 +115,7 @@
             this.menuFile});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1129, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(1405, 33);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -163,6 +152,7 @@
             this.btnEditMovie.TabIndex = 1;
             this.btnEditMovie.Text = "Edit Movie";
             this.btnEditMovie.UseVisualStyleBackColor = true;
+            this.btnEditMovie.Click += new System.EventHandler(this.btnEditMovie_Click);
             // 
             // btnRemoveMovie
             // 
@@ -188,46 +178,11 @@
             this.tableAdapterManager.MoviesTableAdapter = this.moviesTableAdapter;
             this.tableAdapterManager.UpdateOrder = FavoriteMovies.MovieDatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // movieTitleDataGridViewTextBoxColumn
-            // 
-            this.movieTitleDataGridViewTextBoxColumn.DataPropertyName = "MovieTitle";
-            this.movieTitleDataGridViewTextBoxColumn.HeaderText = "MovieTitle";
-            this.movieTitleDataGridViewTextBoxColumn.Name = "movieTitleDataGridViewTextBoxColumn";
-            this.movieTitleDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // releaseYearDataGridViewTextBoxColumn
-            // 
-            this.releaseYearDataGridViewTextBoxColumn.DataPropertyName = "ReleaseYear";
-            this.releaseYearDataGridViewTextBoxColumn.HeaderText = "ReleaseYear";
-            this.releaseYearDataGridViewTextBoxColumn.Name = "releaseYearDataGridViewTextBoxColumn";
-            this.releaseYearDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // genresDataGridViewTextBoxColumn
-            // 
-            this.genresDataGridViewTextBoxColumn.DataPropertyName = "Genres";
-            this.genresDataGridViewTextBoxColumn.HeaderText = "Genre(s)";
-            this.genresDataGridViewTextBoxColumn.Name = "genresDataGridViewTextBoxColumn";
-            this.genresDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ratingDataGridViewTextBoxColumn
-            // 
-            this.ratingDataGridViewTextBoxColumn.DataPropertyName = "Rating";
-            this.ratingDataGridViewTextBoxColumn.HeaderText = "Rating";
-            this.ratingDataGridViewTextBoxColumn.Name = "ratingDataGridViewTextBoxColumn";
-            this.ratingDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // MovieView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1129, 715);
+            this.ClientSize = new System.Drawing.Size(1405, 715);
             this.Controls.Add(this.btnRemoveMovie);
             this.Controls.Add(this.btnEditMovie);
             this.Controls.Add(this.btnAddMovie);
@@ -269,11 +224,6 @@
         private System.Windows.Forms.BindingSource moviesBindingSource;
         private MovieDatabaseDataSetTableAdapters.MoviesTableAdapter moviesTableAdapter;
         private MovieDatabaseDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn movieTitleDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn releaseYearDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn genresDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ratingDataGridViewTextBoxColumn;
     }
 }
 

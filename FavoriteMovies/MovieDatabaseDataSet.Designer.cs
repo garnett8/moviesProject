@@ -285,7 +285,7 @@ namespace FavoriteMovies {
             
             private global::System.Data.DataColumn columnReleaseYear;
             
-            private global::System.Data.DataColumn _columnGenre_s_;
+            private global::System.Data.DataColumn columnGenres;
             
             private global::System.Data.DataColumn columnRating;
             
@@ -348,9 +348,9 @@ namespace FavoriteMovies {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn _Genre_s_Column {
+            public global::System.Data.DataColumn GenresColumn {
                 get {
-                    return this._columnGenre_s_;
+                    return this.columnGenres;
                 }
             }
             
@@ -399,13 +399,13 @@ namespace FavoriteMovies {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MoviesRow AddMoviesRow(string MovieTitle, string Description, int ReleaseYear, string _Genre_s_, int Rating) {
+            public MoviesRow AddMoviesRow(string MovieTitle, string Description, int ReleaseYear, string Genres, int Rating) {
                 MoviesRow rowMoviesRow = ((MoviesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         MovieTitle,
                         Description,
                         ReleaseYear,
-                        _Genre_s_,
+                        Genres,
                         Rating};
                 rowMoviesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMoviesRow);
@@ -432,7 +432,7 @@ namespace FavoriteMovies {
                 this.columnMovieTitle = base.Columns["MovieTitle"];
                 this.columnDescription = base.Columns["Description"];
                 this.columnReleaseYear = base.Columns["ReleaseYear"];
-                this._columnGenre_s_ = base.Columns["Genres"];
+                this.columnGenres = base.Columns["Genres"];
                 this.columnRating = base.Columns["Rating"];
             }
             
@@ -445,16 +445,14 @@ namespace FavoriteMovies {
                 base.Columns.Add(this.columnDescription);
                 this.columnReleaseYear = new global::System.Data.DataColumn("ReleaseYear", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnReleaseYear);
-                this._columnGenre_s_ = new global::System.Data.DataColumn("Genres", typeof(string), null, global::System.Data.MappingType.Element);
-                this._columnGenre_s_.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columnGenre_s_");
-                this._columnGenre_s_.ExtendedProperties.Add("Generator_UserColumnName", "Genres");
-                base.Columns.Add(this._columnGenre_s_);
+                this.columnGenres = new global::System.Data.DataColumn("Genres", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGenres);
                 this.columnRating = new global::System.Data.DataColumn("Rating", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRating);
                 this.columnMovieTitle.AllowDBNull = false;
                 this.columnMovieTitle.MaxLength = 50;
                 this.columnDescription.MaxLength = 50;
-                this._columnGenre_s_.MaxLength = 50;
+                this.columnGenres.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -640,17 +638,17 @@ namespace FavoriteMovies {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string _Genre_s_ {
+            public string Genres {
                 get {
                     try {
-                        return ((string)(this[this.tableMovies._Genre_s_Column]));
+                        return ((string)(this[this.tableMovies.GenresColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Genres\' in table \'Movies\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableMovies._Genre_s_Column] = value;
+                    this[this.tableMovies.GenresColumn] = value;
                 }
             }
             
@@ -696,14 +694,14 @@ namespace FavoriteMovies {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Is_Genre_s_Null() {
-                return this.IsNull(this.tableMovies._Genre_s_Column);
+            public bool IsGenresNull() {
+                return this.IsNull(this.tableMovies.GenresColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Set_Genre_s_Null() {
-                this[this.tableMovies._Genre_s_Column] = global::System.Convert.DBNull;
+            public void SetGenresNull() {
+                this[this.tableMovies.GenresColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -886,8 +884,8 @@ namespace FavoriteMovies.MovieDatabaseDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Movies] ([MovieTitle], [Description], [ReleaseYear], [Genres" +
-                "], [Rating]) VALUES (@MovieTitle, @Description, @ReleaseYear, @p1, @Rating)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Movies] ([MovieTitle], [Description], [ReleaseYear], [Genres]," +
+                " [Rating]) VALUES (@MovieTitle, @Description, @ReleaseYear, @p1, @Rating)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MovieTitle", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MovieTitle", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
