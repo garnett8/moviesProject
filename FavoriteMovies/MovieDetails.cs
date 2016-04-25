@@ -9,7 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
+/// <summary>
+/// This is the MovieDetails Class
+/// MovieDetails is an extra form that allows a user to edit the details of the movie
+/// or add a new movie.
+/// They can specify a movie name, rating, year released, description and genre(s) of the movie
+/// </summary>
 namespace FavoriteMovies
 {
     
@@ -19,6 +24,7 @@ namespace FavoriteMovies
         private Movie originalMovie;
         private string queryInsert = @"INSERT INTO dbo.Movies(MovieTitle, Description, ReleaseYear, Genres, Rating) VALUES(@title, @description, @year, @genre, @rating)";
         private string queryUpdate = @"UPDATE dbo.Movies SET Description = @description, ReleaseYear = @year, Genres = @genre, Rating = @rating WHERE MovieTitle = @title";
+        private string queryCheckName = @"SELECT COUNT(*) FROM dbo.Movies WHERE MovieTitle = @title";
         private bool updating = false;
 
         // Need to replace local path with variable path.
@@ -108,7 +114,7 @@ namespace FavoriteMovies
                 }
                 catch(Exception ex)
                 {
-                    lblDetailsStatus.Text = ex.Message;
+                    lblDetailsStatus.Text = "Error adding new movie";
                 }
             }
             else if(validateInput() && updating)
@@ -137,18 +143,29 @@ namespace FavoriteMovies
                         dbCommand.ExecuteNonQuery();
                         dbConnection.Close();
 
-                        int index = MovieView.movieList.FindIndex(a => a.getMovieTitle() == theMovie.getMovieTitle());
-                        MovieView.movieList.RemoveAt(index);
-                        MovieView.movieList.Add(theMovie);
+                        removeMovie(theMovie.getMovieTitle());
+                        
                    
                     }
+                    
                     this.Close();
                 }
                 catch (Exception ex)
                 {
-                    lblDetailsStatus.Text = ex.Message;
+                    lblDetailsStatus.Text = "Error updating movie";
                 }
             }
+        }
+
+        /// <summary>
+        /// Helper method that removes a movie from the static List based on the name of the movie.
+        /// </summary>
+        /// <param name="theMovieTitle"></param>
+        private void removeMovie(string theMovieTitle)
+        {
+            int index = MovieView.movieList.FindIndex(a => a.getMovieTitle() == theMovieTitle);
+            MovieView.movieList.RemoveAt(index);
+            MovieView.movieList.Add(theMovie);
         }
 
 
@@ -162,7 +179,7 @@ namespace FavoriteMovies
 
             if (!validateTitle())
             {
-                lblDetailsStatus.Text = "Please enter a movie title";
+                lblDetailsStatus.Text = "Please enter a movie title or a movie title that doesn't already exist in the table";
                 status = false;
             }
             else if (!validateYearReleased())
@@ -195,7 +212,46 @@ namespace FavoriteMovies
         /// <returns></returns>
         private bool validateTitle()
         {
-            return !txtMovieTitle.Text.Equals("");
+            return !txtMovieTitle.Text.Equals("") && doesNotExistInDB(txtMovieTitle.Text);
+        }
+
+        /// <summary>
+        /// Helper method to ensure that we have unique names in the database
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        private bool doesNotExistInDB(string title)
+        {
+            bool result = true;
+
+            try
+            {
+                // Save new movie info to the database
+                using (var dbConnection = new SqlConnection(dbConnectionString))
+                using (var dbCommand = new SqlCommand(queryCheckName, dbConnection))
+                {
+                    dbConnection.Open();
+
+                    dbCommand.Parameters.AddWithValue("@title", title);
+
+                    // get the number of records in the database that already have this name.
+                    int count = (int)dbCommand.ExecuteScalar();
+
+                    dbConnection.Close();
+
+                    // if there is a record with that movie name already, fail the update or save request.
+                    if(count > 0)
+                    {
+                        result = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDetailsStatus.Text = "Error updating movie";
+            }
+
+            return result;
         }
 
         /// <summary>

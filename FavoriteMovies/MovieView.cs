@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/// <summary>
+/// Main form of the final project. It allows the user to view movies they have added to their list so that 
+/// they can go back and review movies they really liked.
+/// </summary>
 namespace FavoriteMovies
 {
     public partial class MovieView : Form
@@ -19,9 +23,11 @@ namespace FavoriteMovies
         private const int GENRE_COL = 3;
         private const int RATING_COL = 4;
 
+        // Database strings
         private string dbConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\MovieDatabase.mdf;Integrated Security=True";
         private string selectQuery = "SELECT * FROM dbo.Movies";
         private string deleteQuery = @"DELETE FROM dbo.Movies WHERE MovieTitle = @title";
+
         public static List<Movie> movieList;
         private SqlDataAdapter dataAdapter;
         BindingSource bs = new BindingSource();
@@ -31,11 +37,16 @@ namespace FavoriteMovies
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Load method. Instantiate a list of movies and load the movies  to the dgv from the database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MovieView_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'movieDatabaseDataSet.Movies' table. You can move, or remove it, as needed.
+            
             lblStatus.Text = "";
-           // this.moviesTableAdapter.Fill(this.movieDatabaseDataSet.Movies);
+           
             movieList = new List<Movie>();
             gridMovies.DataSource = bs;
             loadMoviesFromDB();
@@ -74,16 +85,7 @@ namespace FavoriteMovies
                                 }
                             }
                         }
-                        
-                        // Now Refresh the datagrid view
-                        dataAdapter = new SqlDataAdapter(selectQuery, dbConnectionString);
-                        SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
-
-                        DataTable table = new DataTable();
-                        dataAdapter.Fill(table);
-                        bs.DataSource = table;
-                        gridMovies.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
+                        refreshDGV();
                     }
                 }
             }
@@ -91,6 +93,22 @@ namespace FavoriteMovies
             {
                 lblStatus.Text = "Error loading movies from DB";
             }
+        }
+
+        /// <summary>
+        /// Helper method that refreshes the DGV 
+        /// with data from the DB
+        /// </summary>
+        private void refreshDGV()
+        {
+            // Now Refresh the datagrid view
+            dataAdapter = new SqlDataAdapter(selectQuery, dbConnectionString);
+            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+
+            DataTable table = new DataTable();
+            dataAdapter.Fill(table);
+            bs.DataSource = table;
+            gridMovies.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         /// <summary>
@@ -115,6 +133,7 @@ namespace FavoriteMovies
                     dbCommand.ExecuteNonQuery();
                     dbConnection.Close();
                     result = true;
+                    resetStatusLabel();
                 }
             }
             catch (Exception ex)
@@ -136,7 +155,8 @@ namespace FavoriteMovies
 
             MovieDetails movieDetails = new MovieDetails();
             movieDetails.ShowDialog();
-            updateMovies();
+            loadMoviesFromDB();
+            resetStatusLabel();
         }
 
         /// <summary>
@@ -158,16 +178,12 @@ namespace FavoriteMovies
         {
             try
             {
-                string title = gridMovies.SelectedRows[0].Cells[TITLE_COL].Value.ToString();
-                string desc = gridMovies.SelectedRows[0].Cells[DESC_COL].Value.ToString();
-                int year = (int)gridMovies.SelectedRows[0].Cells[YEAR_COL].Value;
-                string genre = gridMovies.SelectedRows[0].Cells[GENRE_COL].Value.ToString();
-                int rating = (int)gridMovies.SelectedRows[0].Cells[RATING_COL].Value;
-                Movie editMovie = new Movie(title, year, rating, desc, genre);
+                Movie editMovie = getMovieFromDGV();
 
                 MovieDetails movieDetails = new MovieDetails(editMovie);
                 movieDetails.ShowDialog();
-                updateMovies();
+                loadMoviesFromDB();
+                resetStatusLabel();
             }
             catch(Exception ex)
             {
@@ -175,23 +191,28 @@ namespace FavoriteMovies
             }
         }
 
-
-        private void updateMovies()
+        /// <summary>
+        /// Returns the selected movie in the DGV as an object.
+        /// </summary>
+        /// <returns></returns>
+        private Movie getMovieFromDGV()
         {
-            loadMoviesFromDB();
+            string title = getSelectedMovieTitle();
 
-            //gridMovies.Columns["movieTitleDataGridViewTextBoxColumn"].DisplayIndex = TITLE_COL;
-            //gridMovies.Columns["releaseYearDataGridViewTextBoxColumn"].DisplayIndex = YEAR_COL;
-            //gridMovies.Columns["ratingDataGridViewTextBoxColumn"].DisplayIndex = RATING_COL;
-            //gridMovies.Columns["descriptionDataGridViewTextBoxColumn"].DisplayIndex = DESC_COL;
-            //gridMovies.Columns["genresDataGridViewTextBoxColumn"].DisplayIndex = GENRE_COL;
+            // Grab the movie that is selected in the DGV and return it
+            Movie editMovie = movieList.Find(a => a.getMovieTitle() == title);
 
-            //gridMovies.Columns["movieTitleDataGridViewTextBoxColumn"].DataPropertyName = "MovieTitle";
-            //gridMovies.Columns["releaseYearDataGridViewTextBoxColumn"].DataPropertyName = "ReleaseYear";
-            //gridMovies.Columns["ratingDataGridViewTextBoxColumn"].DataPropertyName = "Rating";
-            //gridMovies.Columns["descriptionDataGridViewTextBoxColumn"].DataPropertyName = "Description";
-            //gridMovies.Columns["genresDataGridViewTextBoxColumn"].DataPropertyName = "Genres";
+            return editMovie;
+        }
 
+
+        /// <summary>
+        /// Returns the selected movie's title in the DGV
+        /// </summary>
+        /// <returns></returns>
+        private string getSelectedMovieTitle()
+        {
+            return gridMovies.SelectedRows[0].Cells[TITLE_COL].Value.ToString();
         }
 
         /// <summary>
@@ -205,12 +226,20 @@ namespace FavoriteMovies
             if (deleteMovie(movieName))
             {
                 lblStatus.Text = "Movie Deleted";
-                updateMovies();
+                loadMoviesFromDB();
             }
             else
             {
                 lblStatus.Text = "Error Deleting movie";
             }
+        }
+
+        /// <summary>
+        /// Helper method to reset the status label.
+        /// </summary>
+        private void resetStatusLabel()
+        {
+           lblStatus.Text = "";
         }
     }
 }

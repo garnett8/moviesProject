@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 /// <summary>
 /// Movie data object that contains the information pertaining to
-/// a movie entry.
+/// a movie entry. (Title, Rating, Release Year, Description, and Genre(s))
 /// </summary>
 namespace FavoriteMovies
 {
