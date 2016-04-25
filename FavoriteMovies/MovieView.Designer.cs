@@ -162,6 +162,7 @@
             this.btnRemoveMovie.TabIndex = 2;
             this.btnRemoveMovie.Text = "Remove Movie";
             this.btnRemoveMovie.UseVisualStyleBackColor = true;
+            this.btnRemoveMovie.Click += new System.EventHandler(this.btnRemoveMovie_Click);
             // 
             // movieDatabaseDataSetBindingSource
             // 

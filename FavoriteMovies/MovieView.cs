@@ -21,9 +21,11 @@ namespace FavoriteMovies
 
         private string dbConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jaron\documents\visual studio 2015\Projects\FavoriteMovies\FavoriteMovies\MovieDatabase.mdf;Integrated Security=True";
         private string selectQuery = "SELECT * FROM dbo.Movies";
+        private string deleteQuery = @"DELETE FROM dbo.Movies WHERE MovieTitle = @title";
         public static List<Movie> movieList;
         private SqlDataAdapter dataAdapter;
         BindingSource bs = new BindingSource();
+
         public MovieView()
         {
             InitializeComponent();
@@ -80,7 +82,7 @@ namespace FavoriteMovies
                         DataTable table = new DataTable();
                         dataAdapter.Fill(table);
                         bs.DataSource = table;
-                        gridMovies.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
+                        gridMovies.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                     }
                 }
@@ -89,12 +91,38 @@ namespace FavoriteMovies
             {
                 lblStatus.Text = "Error loading movies from DB";
             }
-            finally
+        }
+
+        /// <summary>
+        /// Helper function that takes in a movie name and deletes it from the database
+        /// </summary>
+        /// <param name="movieName"></param>
+        /// <returns></returns>
+        private bool deleteMovie(string movieName)
+        {
+            bool result = false;
+
+            try
             {
-                //updateMovies();
+                // Delete movie from the database
+                using (var dbConnection = new SqlConnection(dbConnectionString))
+                using (var dbCommand = new SqlCommand(deleteQuery, dbConnection))
+                {
+                    dbConnection.Open();
+
+                    dbCommand.Parameters.AddWithValue("@title", movieName);
+
+                    dbCommand.ExecuteNonQuery();
+                    dbConnection.Close();
+                    result = true;
+                }
             }
-            
-            
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Error deleting movie";
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -145,7 +173,6 @@ namespace FavoriteMovies
             {
                 lblStatus.Text = "Please select a movie or add a movie to edit";
             }
-            
         }
 
 
@@ -167,5 +194,23 @@ namespace FavoriteMovies
 
         }
 
+        /// <summary>
+        /// Event handler for the remove movie button. It removes the selected movie in the data grid view.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRemoveMovie_Click(object sender, EventArgs e)
+        {
+            string movieName = gridMovies.SelectedRows[0].Cells[TITLE_COL].Value.ToString();
+            if (deleteMovie(movieName))
+            {
+                lblStatus.Text = "Movie Deleted";
+                updateMovies();
+            }
+            else
+            {
+                lblStatus.Text = "Error Deleting movie";
+            }
+        }
     }
 }
