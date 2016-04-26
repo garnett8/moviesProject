@@ -168,7 +168,23 @@ namespace FavoriteMovies
             MovieView.movieList.Add(theMovie);
         }
 
+        /// <summary>
+        /// helper method to verify title length
+        /// </summary>
+        /// <returns></returns>
+        private bool validateTitleLength()
+        {
+            return txtMovieTitle.Text.Length <= 50;
+        }
 
+        /// <summary>
+        /// helper method to verify description length
+        /// </summary>
+        /// <returns></returns>
+        private bool validateDescriptionLength()
+        {
+            return txtMovieDesc.Text.Length <= 150;
+        }
         /// <summary>
         /// This method validates the movie entry input by caling each text boxes
         /// specific validation method.
@@ -176,8 +192,17 @@ namespace FavoriteMovies
         private bool validateInput()
         {
             bool status = true; 
-
-            if (!validateTitle())
+            if(!validateTitleLength())
+            {
+                lblDetailsStatus.Text = "Please enter a movie title with less than 50 characters";
+                status = false;
+            }
+            else if (!validateDescriptionLength())
+            {
+                lblDetailsStatus.Text = "Please enter a movie description with less than 150 characters";
+                status = false;
+            }
+            else if (!validateTitle())
             {
                 lblDetailsStatus.Text = "Please enter a movie title or a movie title that doesn't already exist in the table";
                 status = false;
@@ -224,32 +249,37 @@ namespace FavoriteMovies
         {
             bool result = true;
 
-            try
+            // only need to check for existing movie if we are adding and not updating.
+            if (!updating)
             {
-                // Save new movie info to the database
-                using (var dbConnection = new SqlConnection(dbConnectionString))
-                using (var dbCommand = new SqlCommand(queryCheckName, dbConnection))
+                try
                 {
-                    dbConnection.Open();
-
-                    dbCommand.Parameters.AddWithValue("@title", title);
-
-                    // get the number of records in the database that already have this name.
-                    int count = (int)dbCommand.ExecuteScalar();
-
-                    dbConnection.Close();
-
-                    // if there is a record with that movie name already, fail the update or save request.
-                    if(count > 0)
+                    // Save new movie info to the database
+                    using (var dbConnection = new SqlConnection(dbConnectionString))
+                    using (var dbCommand = new SqlCommand(queryCheckName, dbConnection))
                     {
-                        result = false;
+                        dbConnection.Open();
+
+                        dbCommand.Parameters.AddWithValue("@title", title);
+
+                        // get the number of records in the database that already have this name.
+                        int count = (int)dbCommand.ExecuteScalar();
+
+                        dbConnection.Close();
+
+                        // if there is a record with that movie name already, fail the update or save request.
+                        if (count > 0)
+                        {
+                            result = false;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    lblDetailsStatus.Text = "Error updating movie";
+                }
             }
-            catch (Exception ex)
-            {
-                lblDetailsStatus.Text = "Error updating movie";
-            }
+            
 
             return result;
         }

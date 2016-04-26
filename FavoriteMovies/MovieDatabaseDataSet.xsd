@@ -47,7 +47,7 @@
   <xs:element name="MovieDatabaseDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="MovieDatabaseDataSet" msprop:Generator_UserDSName="MovieDatabaseDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Movies" msprop:Generator_TableClassName="MoviesDataTable" msprop:Generator_TableVarName="tableMovies" msprop:Generator_RowChangedName="MoviesRowChanged" msprop:Generator_TablePropName="Movies" msprop:Generator_RowDeletingName="MoviesRowDeleting" msprop:Generator_RowChangingName="MoviesRowChanging" msprop:Generator_RowEvHandlerName="MoviesRowChangeEventHandler" msprop:Generator_RowDeletedName="MoviesRowDeleted" msprop:Generator_RowClassName="MoviesRow" msprop:Generator_UserTableName="Movies" msprop:Generator_RowEvArgName="MoviesRowChangeEvent">
+        <xs:element name="Movies" msprop:Generator_TableClassName="MoviesDataTable" msprop:Generator_TableVarName="tableMovies" msprop:Generator_TablePropName="Movies" msprop:Generator_RowDeletingName="MoviesRowDeleting" msprop:Generator_RowChangingName="MoviesRowChanging" msprop:Generator_RowEvHandlerName="MoviesRowChangeEventHandler" msprop:Generator_RowDeletedName="MoviesRowDeleted" msprop:Generator_UserTableName="Movies" msprop:Generator_RowChangedName="MoviesRowChanged" msprop:Generator_RowEvArgName="MoviesRowChangeEvent" msprop:Generator_RowClassName="MoviesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="MovieTitle" msprop:Generator_ColumnVarNameInTable="columnMovieTitle" msprop:Generator_ColumnPropNameInRow="MovieTitle" msprop:Generator_ColumnPropNameInTable="MovieTitleColumn" msprop:Generator_UserColumnName="MovieTitle">
@@ -60,7 +60,7 @@
               <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
+                    <xs:maxLength value="150" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

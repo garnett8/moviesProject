@@ -451,7 +451,7 @@ namespace FavoriteMovies {
                 base.Columns.Add(this.columnRating);
                 this.columnMovieTitle.AllowDBNull = false;
                 this.columnMovieTitle.MaxLength = 50;
-                this.columnDescription.MaxLength = 50;
+                this.columnDescription.MaxLength = 150;
                 this.columnGenres.MaxLength = 50;
             }
             
